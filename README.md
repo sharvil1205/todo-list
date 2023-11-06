@@ -4,6 +4,13 @@ This is a simple Todo List application built using React, Redux, and RTK Query. 
 
 **Deployed version:** https://65489b7fbf24fd710159586d--sparkly-kitten-627a08.netlify.app/
 
+
+
+![image](https://github.com/sharvil1205/todo-list/assets/79535235/c11fbd54-1a61-487c-b310-a55864d5a659)
+
+
+
+
 **Features:**
 1. View the list of tasks
 2. Add a new task
