@@ -2,9 +2,12 @@
 
 import React from 'react';
 import { useGetTodosQuery, useAddTodoMutation, useMarkTodoAsCompleteMutation, useDeleteTodoMutation } from '../services/todos';
+import { useQueryClient } from 'react-query';
 
 const TodoList = () => {
-  const { data: todos, error, isLoading } = useGetTodosQuery();
+  const { data: todos, error, isLoading, isFetching, refetch } = useGetTodosQuery({
+    refetchInterval: 5000,
+  });
   const [addNewTodo] = useAddTodoMutation();
   const [markAsComplete] = useMarkTodoAsCompleteMutation();
   const [deleteTodo] = useDeleteTodoMutation();
@@ -22,6 +25,7 @@ const TodoList = () => {
         userId: 1,
         createdAt:currentDate,
       });
+      refetch();
     } catch (error) {
       // Handle error if adding a new TODO fails
     }
@@ -30,6 +34,7 @@ const TodoList = () => {
   const handleMarkAsComplete = async (id) => {
     try {
       await markAsComplete(id);
+      refetch();
     } catch (error) {
       // Handle error if marking task as complete fails
     }
@@ -38,6 +43,7 @@ const TodoList = () => {
   const handleDeleteTodo = async (id) => {
     try {
       await deleteTodo(id);
+      refetch();
     } catch (error) {
       // Handle error if deleting the task fails
     }
