@@ -6,13 +6,6 @@
       "userId": 1,
       "createdAt": "2023-11-07",
       "id": 7
-    },
-    {
-      "title": "hi",
-      "completed": false,
-      "userId": 1,
-      "createdAt": "2023-11-07",
-      "id": 8
     }
   ]
 }
