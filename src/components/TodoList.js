@@ -2,10 +2,9 @@
 
 import React from 'react';
 import { useGetTodosQuery, useAddTodoMutation, useMarkTodoAsCompleteMutation, useDeleteTodoMutation } from '../services/todos';
-import { useQueryClient } from 'react-query';
 
 const TodoList = () => {
-  const { data: todos, error, isLoading, isFetching, refetch } = useGetTodosQuery({
+  const { data: todos, error, isLoading, refetch } = useGetTodosQuery({
     refetchInterval: 5000,
   });
   const [addNewTodo] = useAddTodoMutation();
