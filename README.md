@@ -2,7 +2,7 @@
 
 This is a simple Todo List application built using React, Redux, and RTK Query. It allows users to add, mark as complete, and delete tasks. The app fetches data from a mock REST API and performs CRUD operations.
 
-**Deployed version:** https://65489b7fbf24fd710159586d--sparkly-kitten-627a08.netlify.app/
+**Deployed version:** https://deploy-preview-4--sparkly-kitten-627a08.netlify.app/
 
 
 
