@@ -6,7 +6,7 @@ This is a simple Todo List application built using React, Redux, and RTK Query. 
 
 
 
-![image](https://github.com/sharvil1205/todo-list/assets/79535235/c11fbd54-1a61-487c-b310-a55864d5a659)
+![image](https://github.com/sharvil1205/todo-list/assets/79535235/be9be052-bfd6-412e-97fd-190502585130)
 
 
 
