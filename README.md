@@ -15,7 +15,8 @@ This is a simple Todo List application built using React, Redux, and RTK Query. 
 1. View the list of tasks
 2. Add a new task
 3. Mark a task as complete
-4. Delete a task
+4. Edit a task
+5. Delete a task
 
 
 **Technologies Used:**
