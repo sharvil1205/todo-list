@@ -1,7 +1,8 @@
 // src/components/TodoList.js
 
+import { useState } from 'react';
 import React from 'react';
-import { useGetTodosQuery, useAddTodoMutation, useMarkTodoAsCompleteMutation, useDeleteTodoMutation } from '../services/todos';
+import { useGetTodosQuery, useAddTodoMutation, useMarkTodoAsCompleteMutation, useDeleteTodoMutation, useEditTodoMutation } from '../services/todos';
 
 const TodoList = () => {
   const { data: todos, error, isLoading, refetch } = useGetTodosQuery({
@@ -10,6 +11,9 @@ const TodoList = () => {
   const [addNewTodo] = useAddTodoMutation();
   const [markAsComplete] = useMarkTodoAsCompleteMutation();
   const [deleteTodo] = useDeleteTodoMutation();
+  const [editTodo] = useEditTodoMutation();
+  const [editedTitle, setEditedTitle] = useState('');
+  const [editableId, setEditableId] = useState(null); 
 
   if (isLoading) return <div className="text-center mt-8">Loading...</div>;
 
@@ -22,11 +26,25 @@ const TodoList = () => {
         title: newTodoTitle,
         completed: false,
         userId: 1,
-        createdAt:currentDate,
+        createdAt: currentDate,
       });
       refetch();
     } catch (error) {
       // Handle error if adding a new TODO fails
+    }
+  };
+
+  const handleEditTodo = async (id, newTodoTitle) => {
+    try {
+      console.log(newTodoTitle);
+      await editTodo({
+        id: id,
+        title: newTodoTitle,
+      });
+      refetch();
+      setEditableId(null); 
+    } catch (error) {
+      // Handle error if editing the TODO fails
     }
   };
 
@@ -48,22 +66,44 @@ const TodoList = () => {
     }
   };
 
+  const handleEditClick = (id, title) => {
+    setEditableId(id);
+    setEditedTitle(title); 
+  };
+
   return (
-    <div className="max-w-md mx-auto mt-8 bg-gray-100 p-4 rounded-lg shadow-md">
+    <div className="max-w-2xl mx-auto mt-8 bg-gray-100 p-4 rounded-lg shadow-md">
       <ul>
         {todos.map((todo) => (
           <li key={todo.id} className="flex items-center justify-between py-2 border-b">
             <span className='mr-8'>
               {todo.createdAt}
             </span>
+            <button className='text-yellow-700 mr-8' 
+            onClick={() => handleEditClick(todo.id, todo.title)}>Edit</button>
             <span className={`text-lg flex-1 break-all mr-8`}>
-              {todo.title}
+            {editableId === todo.id ? (
+                <input
+                  type="text"
+                  value={editedTitle} 
+                  onChange={(e) => setEditedTitle(e.target.value)}
+                  onBlur={() => handleEditTodo(todo.id, editedTitle)}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter') {
+                      handleEditTodo(todo.id, editedTitle);
+                      setEditableId(null);
+                    }
+                  }}
+                ></input>
+              ) : (
+                <span>{todo.title}</span>
+              )}
             </span>
             <span>
               {todo.completed ? (
-                <span className="text-sm text-green-500">Completed</span>
+                <span className="text-sm text-green-500 mx-8">Completed</span>
               ) : (
-                <button onClick={() => handleMarkAsComplete(todo.id)} className="text-blue-500">
+                <button onClick={() => handleMarkAsComplete(todo.id)} className="text-blue-500 mr-8">
                   Mark Complete
                 </button>
               )}
@@ -95,7 +135,7 @@ const TodoList = () => {
               input.value = '';
             }
           }}
-          className="bg-blue-500 text-white rounded-r px-4 hover:bg-blue-600 transition duration-300"
+          className="bg-violet-500 text-white rounded-r px-4 hover:bg-violet-600 transition duration-300"
         >
           Add
         </button>
