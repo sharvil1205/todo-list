@@ -14,6 +14,7 @@ const TodoList = () => {
   const [editTodo] = useEditTodoMutation();
   const [editedTitle, setEditedTitle] = useState('');
   const [editableId, setEditableId] = useState(null); 
+  const [isGridView, setGridView] = useState(false)
 
   if (isLoading) return <div className="text-center mt-8">Loading...</div>;
 
@@ -72,7 +73,13 @@ const TodoList = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-8 bg-gray-100 p-4 rounded-lg shadow-md">
+    <div>
+      <div className='w-[13rem] h-10 bg-gray-100 mx-auto mt-8 flex justify-between rounded-md shadow-md'>
+      <button className={`px-4 rounded-lg ${isGridView ? 'bg-gray-100' : 'bg-gray-300'}`} onClick={()=>setGridView(false)}>List View</button>
+      <button className={`px-4 rounded-lg ${isGridView ? 'bg-gray-300' : 'bg-gray-100'}`} onClick={()=>setGridView(true)}>Grid View</button>
+      </div>
+      {isGridView ? (<></>) : (
+      <div className="max-w-2xl mx-auto mt-8 bg-gray-100 p-4 rounded-lg shadow-md">
       <ul>
         {todos.map((todo) => (
           <li key={todo.id} className="flex items-center justify-between py-2 border-b">
@@ -140,6 +147,8 @@ const TodoList = () => {
           Add
         </button>
       </div>
+    </div>)}
+    
     </div>
   );
 };
