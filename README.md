@@ -38,3 +38,5 @@ npm install
 3. Start the development server:
 npm start
 Open your browser and go to http://localhost:3000 to view the application.
+
+4. To start the db.json, use this command: npx json-server --watch data/db.json --port 3500
